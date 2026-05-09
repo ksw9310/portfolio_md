@@ -10,12 +10,12 @@
 
   :root {
     --bg: #faf9f7;
-    --surface: #f2f0ec;
-    --border: rgba(0,0,0,0.08);
-    --text: #1a1a1a;
-    --muted: #888;
-    --accent: #8b6f47;
-    --accent-light: #d4b896;
+    --surface: #f0ede8;
+    --border: rgba(0,0,0,0.12);
+    --text: #111111;
+    --muted: #555555;
+    --accent: #7a5c35;
+    --accent-light: #c4a07a;
   }
 
   html { scroll-behavior: smooth; }
@@ -115,8 +115,58 @@
     border-radius: 20px;
   }
   .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4rem 3rem;
+    background: var(--surface);
+  }
+  .hero-stat-grid {
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    flex: 1;
+    margin-bottom: 2rem;
+  }
+  .hero-stat {
+    background: var(--surface);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hero-brand-note {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+  .hero-brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 3px;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .hero-brand-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.8;
   }
   .hero-poster {
     overflow: hidden;
@@ -369,23 +419,27 @@
     </div>
   </div>
   <div class="hero-right">
-    <div class="hero-poster">
-      <img src="1.jpg" alt="에그타르트 포스터" onerror="this.parentNode.innerHTML='<div class=\'img-placeholder\'><span>Egg Tart Poster</span></div>'">
-      <div class="hero-poster-label">Daisy365 · 에그타르트</div>
+    <div class="hero-stat-grid">
+      <div class="hero-stat">
+        <span class="hero-stat-num">8</span>
+        <span class="hero-stat-label">Posters</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">1</span>
+        <span class="hero-stat-label">Brand</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">AI</span>
+        <span class="hero-stat-label">+ Canva</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">6+</span>
+        <span class="hero-stat-label">Dev Years</span>
+      </div>
     </div>
-    <div class="hero-meta">
-      <div class="meta-item">
-        <p class="meta-label">브랜드</p>
-        <p class="meta-value">DAISY365</p>
-      </div>
-      <div class="meta-item">
-        <p class="meta-label">제작 툴</p>
-        <p class="meta-value">AI Image + Canva</p>
-      </div>
-      <div class="meta-item">
-        <p class="meta-label">제작물</p>
-        <p class="meta-value">신메뉴 프로모션 포스터 8종</p>
-      </div>
+    <div class="hero-brand-note">
+      <p class="hero-brand-name">DAISY365</p>
+      <p class="hero-brand-desc">카페 신메뉴 프로모션 포스터<br>기획 · 제작 · SNS 게시</p>
     </div>
   </div>
 </div>
