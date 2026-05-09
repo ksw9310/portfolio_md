@@ -185,7 +185,7 @@
   /* WORK GRID */
   .work-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
   .work-item {
     position: relative;
@@ -194,7 +194,7 @@
     cursor: pointer;
     aspect-ratio: 3/4;
   }
-  .work-item:nth-child(odd) { border-right: 1px solid var(--border); }
+  .work-item:not(:nth-child(3n)) { border-right: 1px solid var(--border); }
   .work-item img {
     width: 100%;
     height: 100%;
@@ -205,26 +205,26 @@
   .work-overlay {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    padding: 2rem 1.5rem 1.5rem;
-    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+    padding: 1.5rem 1.2rem 1.2rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%);
     opacity: 0;
     transition: opacity 0.3s;
   }
   .work-item:hover .work-overlay { opacity: 1; }
   .work-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 400;
     color: white;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
   }
-  .work-sub { font-size: 0.75rem; color: rgba(255,255,255,0.75); letter-spacing: 1px; }
+  .work-sub { font-size: 0.7rem; color: rgba(255,255,255,0.75); letter-spacing: 1px; }
 
   /* WIDE ITEM */
   .work-item.wide {
-    grid-column: span 2;
-    aspect-ratio: 16/7;
-    border-right: none;
+    grid-column: span 1;
+    aspect-ratio: 3/4;
+    border-right: 1px solid var(--border);
   }
 
   /* SKILLS */
@@ -328,9 +328,10 @@
     .hero-right { display: none; }
     .hero-left { padding: 2rem 1.5rem 3rem; }
     .section-header { padding: 1.5rem; }
-    .work-grid { grid-template-columns: 1fr; }
-    .work-item.wide { grid-column: span 1; aspect-ratio: 3/4; }
-    .work-item:nth-child(odd) { border-right: none; }
+    .work-grid { grid-template-columns: 1fr 1fr; }
+    .work-item.wide { grid-column: span 1; }
+    .work-item:not(:nth-child(3n)) { border-right: none; }
+    .work-item:nth-child(odd) { border-right: 1px solid var(--border); }
     .skills-wrap { grid-template-columns: 1fr; }
     .skill-col { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem 1.5rem; }
     .contact-wrap { flex-direction: column; gap: 2rem; padding: 3rem 1.5rem; align-items: flex-start; }
@@ -369,7 +370,7 @@
   </div>
   <div class="hero-right">
     <div class="hero-poster">
-      <img src="1.png" alt="에그타르트 포스터" onerror="this.parentNode.innerHTML='<div class=\'img-placeholder\'><span>Egg Tart Poster</span></div>'">
+      <img src="1.jpg" alt="에그타르트 포스터" onerror="this.parentNode.innerHTML='<div class=\'img-placeholder\'><span>Egg Tart Poster</span></div>'">
       <div class="hero-poster-label">Daisy365 · 에그타르트</div>
     </div>
     <div class="hero-meta">
@@ -395,82 +396,210 @@
     <h2 class="section-title">Visual Work</h2>
     <span class="section-count">DAISY365 · 8 Posters</span>
   </div>
-  <div class="work-grid">
 
-    <div class="work-item">
-      <img src="2.png" alt="버터떡" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-      <div class="img-placeholder" style="display:none;"><span>버터떡 포스터</span><span>2.png</span></div>
-      <div class="work-overlay">
-        <p class="work-title">버터떡</p>
-        <p class="work-sub">플레인 · 흑임자 · 말차 3종</p>
-      </div>
+  <!-- Main Slider -->
+  <div class="slider-wrap">
+    <div class="slider-main">
+      <img id="sliderImg" src="1.png" alt="포스터">
+      <div class="slider-label" id="sliderLabel">Egg Tart · 에그타르트 · 흑임자 · 말차 3종</div>
+      <button class="slider-btn prev" onclick="changeSlide(-1)">&#8592;</button>
+      <button class="slider-btn next" onclick="changeSlide(1)">&#8594;</button>
     </div>
+  </div>
 
-    <div class="work-item">
-      <img src="3.jpg" alt="우베라떼" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-      <div class="img-placeholder" style="display:none;"><span>우베라떼 포스터</span><span>3.jpg</span></div>
-      <div class="work-overlay">
-        <p class="work-title">Ube Latte</p>
-        <p class="work-sub">우베라떼 · 우베말차라떼</p>
-      </div>
+  <!-- Thumbnails -->
+  <div class="thumb-row">
+    <div class="thumb active" onclick="goSlide(0)">
+      <img src="1.png" alt="에그타르트">
     </div>
-
-    <div class="work-item wide">
-      <img src="4.png" alt="아망브륄레" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-      <div class="img-placeholder" style="display:none;"><span>아망브륄레 포스터</span><span>4.png</span></div>
-      <div class="work-overlay">
-        <p class="work-title">Aman Brûlée</p>
-        <p class="work-sub">크루아상 & 브레드 · 프리미엄 더블베이크드</p>
-      </div>
+    <div class="thumb" onclick="goSlide(1)">
+      <img src="2.png" alt="버터떡">
     </div>
-
-    <div class="work-item">
-      <img src="1.png" alt="에그타르트" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-      <div class="img-placeholder" style="display:none;"><span>에그타르트 포스터</span><span>1.png</span></div>
-      <div class="work-overlay">
-        <p class="work-title">Egg Tart</p>
-        <p class="work-sub">에그타르트 · 흑임자 · 말차 3종</p>
-      </div>
+    <div class="thumb" onclick="goSlide(2)">
+      <img src="3.jpg" alt="우베라떼">
     </div>
-
-    <div class="work-item">
-      <img src="5.png" alt="버터모찌" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-      <div class="img-placeholder" style="display:none;"><span>버터모찌 포스터</span><span>5.png</span></div>
-      <div class="work-overlay">
-        <p class="work-title">Butter Mochi</p>
-        <p class="work-sub">말차 · 초코 · 플레인 3종</p>
-      </div>
+    <div class="thumb" onclick="goSlide(3)">
+      <img src="4.png" alt="아망브륄레">
     </div>
-
-    <div class="work-item">
-      <img src="6.png" alt="샌드위치" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-      <div class="img-placeholder" style="display:none;"><span>샌드위치 포스터</span><span>6.png</span></div>
-      <div class="work-overlay">
-        <p class="work-title">Sandwich</p>
-        <p class="work-sub">에그마요 · 햄&에그 · 크랜베리닭가슴살</p>
-      </div>
+    <div class="thumb" onclick="goSlide(4)">
+      <img src="5.png" alt="버터모찌">
     </div>
-
-    <div class="work-item">
-      <img src="7.png" alt="크로플" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-      <div class="img-placeholder" style="display:none;"><span>크로플 포스터</span><span>7.png</span></div>
-      <div class="work-overlay">
-        <p class="work-title">Croffle</p>
-        <p class="work-sub">플레인 · 초코 · 인절미 · 브라운치즈</p>
-      </div>
+    <div class="thumb" onclick="goSlide(5)">
+      <img src="6.png" alt="샌드위치">
     </div>
-
-    <div class="work-item">
-      <img src="8.png" alt="빙수" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-      <div class="img-placeholder" style="display:none;"><span>빙수 포스터</span><span>8.png</span></div>
-      <div class="work-overlay">
-        <p class="work-title">눈꽃빙수</p>
-        <p class="work-sub">인절미 · 말차 · 딸기 · 애플망고</p>
-      </div>
+    <div class="thumb" onclick="goSlide(6)">
+      <img src="7.png" alt="크로플">
     </div>
-
+    <div class="thumb" onclick="goSlide(7)">
+      <img src="8.png" alt="빙수">
+    </div>
   </div>
 </section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+</div>
+
+<style>
+.slider-wrap {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+}
+.slider-main {
+  position: relative;
+  max-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slider-main img {
+  max-height: 70vh;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  cursor: zoom-in;
+  transition: transform 0.3s;
+  border-radius: 2px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+}
+.slider-main img:hover { transform: scale(1.02); }
+.slider-label {
+  position: absolute;
+  bottom: -2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 40px; height: 40px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text);
+}
+.slider-btn:hover { background: white; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+.slider-btn.prev { left: -3.5rem; }
+.slider-btn.next { right: -3.5rem; }
+.thumb-row {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.thumb {
+  flex: 1;
+  min-width: 0;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  cursor: pointer;
+  border-right: 1px solid var(--border);
+  opacity: 0.5;
+  transition: opacity 0.2s, transform 0.2s;
+  position: relative;
+}
+.thumb:last-child { border-right: none; }
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.thumb:hover { opacity: 1; }
+.thumb:hover img { transform: scale(1.08); }
+.thumb.active { opacity: 1; }
+.thumb.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-height: 92vh;
+  max-width: 92vw;
+  object-fit: contain;
+  border-radius: 2px;
+}
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem; right: 1.5rem;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  border-radius: 50%;
+  width: 36px; height: 36px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+@media (max-width: 768px) {
+  .slider-wrap { padding: 1.5rem; }
+  .slider-btn.prev { left: -2rem; }
+  .slider-btn.next { right: -2rem; }
+  .slider-btn { width: 32px; height: 32px; font-size: 0.85rem; }
+}
+</style>
+
+<script>
+const slides = [
+  { src: '1.png', label: 'Egg Tart · 에그타르트 · 흑임자 · 말차 3종' },
+  { src: '2.png', label: '버터떡 · 플레인 · 흑임자 · 말차 3종' },
+  { src: '3.jpg', label: 'Ube Latte · 우베라떼 · 우베말차라떼' },
+  { src: '4.png', label: 'Aman Brûlée · 크루아상 & 브레드' },
+  { src: '5.png', label: 'Butter Mochi · 말차 · 초코 · 플레인' },
+  { src: '6.png', label: 'Sandwich · 에그마요 · 햄&에그 · 크랜베리닭가슴살' },
+  { src: '7.png', label: 'Croffle · 플레인 · 초코 · 인절미 · 브라운치즈' },
+  { src: '8.png', label: '눈꽃빙수 · 인절미 · 말차 · 딸기 · 애플망고' },
+];
+let cur = 0;
+
+function goSlide(i) {
+  cur = i;
+  const img = document.getElementById('sliderImg');
+  img.src = slides[i].src;
+  document.getElementById('sliderLabel').textContent = slides[i].label;
+  document.querySelectorAll('.thumb').forEach((t, idx) => t.classList.toggle('active', idx === i));
+}
+
+function changeSlide(dir) {
+  goSlide((cur + dir + slides.length) % slides.length);
+}
+
+document.getElementById('sliderImg').addEventListener('click', () => {
+  document.getElementById('lightboxImg').src = slides[cur].src;
+  document.getElementById('lightbox').classList.add('open');
+});
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+</script>
 
 <!-- SKILLS -->
 <section id="skills">
@@ -532,10 +661,10 @@
 <!-- IMAGE SETUP GUIDE -->
 <div style="display:none" id="guide">
   이미지 파일명 가이드:
-  - 1.png (에그타르트 포스터)
-  - 2.png (버터떡 포스터)
-  - 5.png (버터모찌 포스터)
-  - 4.png (아망브륄레 포스터)
+  - 1.jpg (에그타르트 포스터)
+  - 2.jpg (버터떡 포스터)
+  - 5.jpg (버터모찌 포스터)
+  - 4.jpg (아망브륄레 포스터)
   - 3.jpg (우베라떼 포스터)
   portfolio_md.html과 같은 폴더에 넣으면 자동으로 표시됩니다.
 </div>
