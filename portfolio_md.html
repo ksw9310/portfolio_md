@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>강상욱 · Visual Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Pretendard:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #faf9f7;
+    --surface: #f2f0ec;
+    --border: rgba(0,0,0,0.08);
+    --text: #1a1a1a;
+    --muted: #888;
+    --accent: #8b6f47;
+    --accent-light: #d4b896;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(250,249,247,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 4rem 3rem;
+    border-right: 1px solid var(--border);
+  }
+  .hero-label {
+    font-size: 0.7rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 2rem;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.9;
+    max-width: 360px;
+    margin-bottom: 3rem;
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 20px;
+  }
+  .hero-right {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+  }
+  .hero-poster {
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .hero-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .hero-poster:hover img { transform: scale(1.03); }
+  .hero-poster-label {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: white;
+    background: rgba(0,0,0,0.4);
+    padding: 4px 10px;
+    backdrop-filter: blur(4px);
+  }
+  .hero-meta {
+    padding: 2.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .meta-item { }
+  .meta-label {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  .meta-value { font-size: 0.9rem; color: var(--text); }
+
+  /* SECTION */
+  section { border-top: 1px solid var(--border); }
+  .section-header {
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+  .section-count {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* WORK GRID */
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .work-item {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    aspect-ratio: 3/4;
+  }
+  .work-item:nth-child(odd) { border-right: 1px solid var(--border); }
+  .work-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .work-item:hover img { transform: scale(1.04); }
+  .work-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 2rem 1.5rem 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .work-item:hover .work-overlay { opacity: 1; }
+  .work-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 0.3rem;
+  }
+  .work-sub { font-size: 0.75rem; color: rgba(255,255,255,0.75); letter-spacing: 1px; }
+
+  /* WIDE ITEM */
+  .work-item.wide {
+    grid-column: span 2;
+    aspect-ratio: 16/7;
+    border-right: none;
+  }
+
+  /* SKILLS */
+  .skills-wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .skill-col {
+    padding: 2.5rem 3rem;
+    border-right: 1px solid var(--border);
+  }
+  .skill-col:last-child { border-right: none; }
+  .skill-col-title {
+    font-size: 0.65rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+  .skill-items { display: flex; flex-direction: column; gap: 0.8rem; }
+  .skill-item {
+    font-size: 0.875rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .skill-item::before {
+    content: '';
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    flex-shrink: 0;
+  }
+  .skill-item.primary { color: var(--text); font-weight: 400; }
+
+  /* CONTACT */
+  .contact-wrap {
+    padding: 5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .contact-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 300;
+    line-height: 1;
+  }
+  .contact-title em { font-style: italic; color: var(--accent); }
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-end;
+  }
+  .contact-link {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { color: var(--text); border-color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+  }
+  footer p { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.5px; }
+
+  /* IMAGE NOTICE */
+  .img-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .img-placeholder span {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { display: none; }
+    .hero-left { padding: 2rem 1.5rem 3rem; }
+    .section-header { padding: 1.5rem; }
+    .work-grid { grid-template-columns: 1fr; }
+    .work-item.wide { grid-column: span 1; aspect-ratio: 3/4; }
+    .work-item:nth-child(odd) { border-right: none; }
+    .skills-wrap { grid-template-columns: 1fr; }
+    .skill-col { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem 1.5rem; }
+    .contact-wrap { flex-direction: column; gap: 2rem; padding: 3rem 1.5rem; align-items: flex-start; }
+    footer { flex-direction: column; gap: 0.3rem; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Kang Sangwook</div>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <p class="hero-label">Visual · MD Portfolio</p>
+    <h1 class="hero-name">강상욱<br><em>Visual</em><br>Portfolio</h1>
+    <p class="hero-desc">
+      상품 기획과 비주얼 커뮤니케이션을 연결합니다.
+      카페 운영 경험을 바탕으로 신메뉴 프로모션 콘텐츠를 기획·제작해왔으며,
+      AI와 디자인 툴을 활용해 빠르게 퀄리티 있는 결과물을 만듭니다.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">상품 기획</span>
+      <span class="hero-tag">비주얼 콘텐츠</span>
+      <span class="hero-tag">AI + Canva</span>
+      <span class="hero-tag">프로모션 기획</span>
+      <span class="hero-tag">이커머스</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-poster">
+      <img src="egg-tart.jpg" alt="에그타르트 포스터" onerror="this.parentNode.innerHTML='<div class=\'img-placeholder\'><span>Egg Tart Poster</span></div>'">
+      <div class="hero-poster-label">Daisy365 · 에그타르트</div>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <p class="meta-label">브랜드</p>
+        <p class="meta-value">DAISY365</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-label">제작 툴</p>
+        <p class="meta-value">AI Image + Canva</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-label">제작물</p>
+        <p class="meta-value">신메뉴 프로모션 포스터 5종</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-header">
+    <h2 class="section-title">Visual Work</h2>
+    <span class="section-count">DAISY365 · 5 Posters</span>
+  </div>
+  <div class="work-grid">
+
+    <div class="work-item">
+      <img src="butter-tteok.jpg" alt="버터떡" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder" style="display:none;"><span>버터떡 포스터</span><span>butter-tteok.jpg</span></div>
+      <div class="work-overlay">
+        <p class="work-title">버터떡</p>
+        <p class="work-sub">플레인 · 흑임자 · 말차 3종</p>
+      </div>
+    </div>
+
+    <div class="work-item">
+      <img src="ube-latte.jpg" alt="우베라떼" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder" style="display:none;"><span>우베라떼 포스터</span><span>ube-latte.jpg</span></div>
+      <div class="work-overlay">
+        <p class="work-title">Ube Latte</p>
+        <p class="work-sub">우베라떼 · 우베말차라떼</p>
+      </div>
+    </div>
+
+    <div class="work-item wide">
+      <img src="aman-brulee.jpg" alt="아망브륄레" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder" style="display:none;"><span>아망브륄레 포스터</span><span>aman-brulee.jpg</span></div>
+      <div class="work-overlay">
+        <p class="work-title">Aman Brûlée</p>
+        <p class="work-sub">크루아상 & 브레드 · 프리미엄 더블베이크드</p>
+      </div>
+    </div>
+
+    <div class="work-item">
+      <img src="egg-tart.jpg" alt="에그타르트" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder" style="display:none;"><span>에그타르트 포스터</span><span>egg-tart.jpg</span></div>
+      <div class="work-overlay">
+        <p class="work-title">Egg Tart</p>
+        <p class="work-sub">에그타르트 · 흑임자 · 말차 3종</p>
+      </div>
+    </div>
+
+    <div class="work-item">
+      <img src="butter-mochi.jpg" alt="버터모찌" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder" style="display:none;"><span>버터모찌 포스터</span><span>butter-mochi.jpg</span></div>
+      <div class="work-overlay">
+        <p class="work-title">Butter Mochi</p>
+        <p class="work-sub">말차 · 초코 · 플레인 3종</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <h2 class="section-title">Skills & Background</h2>
+    <span class="section-count">MD / VMD</span>
+  </div>
+  <div class="skills-wrap">
+    <div class="skill-col">
+      <p class="skill-col-title">Visual</p>
+      <div class="skill-items">
+        <span class="skill-item primary">Canva</span>
+        <span class="skill-item primary">AI 이미지 생성 · 활용</span>
+        <span class="skill-item">상품 이미지 기획</span>
+        <span class="skill-item">프로모션 배너 제작</span>
+        <span class="skill-item">타이포그래피 레이아웃</span>
+      </div>
+    </div>
+    <div class="skill-col">
+      <p class="skill-col-title">Commerce</p>
+      <div class="skill-items">
+        <span class="skill-item primary">이커머스 플랫폼 구조 이해</span>
+        <span class="skill-item primary">상품 카탈로그 · 프로모션 설계</span>
+        <span class="skill-item">패션 트렌드 모니터링</span>
+        <span class="skill-item">마진율 · 가격 구조 이해</span>
+        <span class="skill-item">카페 운영 · 신메뉴 기획 경험</span>
+      </div>
+    </div>
+    <div class="skill-col">
+      <p class="skill-col-title">Tech</p>
+      <div class="skill-items">
+        <span class="skill-item primary">Next.js · React</span>
+        <span class="skill-item primary">Flutter 앱 개발</span>
+        <span class="skill-item">페이먼트 시스템</span>
+        <span class="skill-item">Vercel 배포</span>
+        <span class="skill-item">6년 풀스택 개발 경력</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <h2 class="contact-title">Get in<br><em>Touch.</em></h2>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:rkdtksdnr93@gmail.com">rkdtksdnr93@gmail.com ↗</a>
+      <a class="contact-link" href="https://www.ksurvivalkit.com/en" target="_blank">ksurvivalkit.com ↗</a>
+      <a class="contact-link" href="https://koreanlive.live" target="_blank">koreanlive.live ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Kang Sangwook · Visual & MD Portfolio</p>
+  <p>Incheon, KR</p>
+</footer>
+
+<!-- IMAGE SETUP GUIDE -->
+<div style="display:none" id="guide">
+  이미지 파일명 가이드:
+  - egg-tart.jpg (에그타르트 포스터)
+  - butter-tteok.jpg (버터떡 포스터)
+  - butter-mochi.jpg (버터모찌 포스터)
+  - aman-brulee.jpg (아망브륄레 포스터)
+  - ube-latte.jpg (우베라떼 포스터)
+  portfolio_md.html과 같은 폴더에 넣으면 자동으로 표시됩니다.
+</div>
+
+</body>
+</html>
